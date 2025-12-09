@@ -28,3 +28,5 @@ function Tasbih () {
         </div>
     );
 }
+
+export default Tasbih
