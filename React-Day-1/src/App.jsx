@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Tasbih from './src/Tasbih';
+import Tasbih from './Tasbih';
 
 function App() {
   return (
