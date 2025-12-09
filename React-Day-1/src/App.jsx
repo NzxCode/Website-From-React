@@ -1,32 +1,41 @@
 import { useState } from 'react';
 
 function App() {
-  const [App, setApp] = useState({
+  const [data, setData] = useState({
     brand: "Nvidia",
-    model: "Prototype",
-    year: "2007",
+    model: "RTX 4090",
+    year: "2024",
     color: "Biru"
   });
 
   function SapaUser() {
-    console.log("Tombol berhasil ditekan! Pesan ini dari Console.");
-    alert("Tombol ditekan!");
+    console.log("Tombol ditekan!");
+    alert("Halo Nicolas!");
   }
 
+  // Fungsi Ubah Warna
   const updateColor = () => {
-    setApp(previousState => {
-      return {... previousState, color : "yellow" }
+    setData(previousState => {
+      return { ...previousState, color: "Yellow (Emas)" }
     });
   }
 
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>Selamat Datang di Web {App.brand}</h1>
-      <p>Brand ini sudah ada mulai dari model {App.model} yang berwarna {App.color} dibuat pada tahun {App.year}</p>
-      <button type="button" onClick={updateColor} style={{ padding: '10px 20px', fontSize: '16px' }}>Klik Saya!</button>
-      <button onClick={sapaUser} style={{ padding: '10px 20px', fontSize: '16px' }}>
-        Coba Sapa!
-      </button>
+      <h1>Selamat Datang di Web {data.brand}</h1>
+      <p>
+        Model: {data.model} | Tahun: {data.year} | Warna: 
+        <b style={{ color: data.color === 'Biru' ? 'blue' : 'gold' }}> {data.color}</b>
+      </p>
+      
+      <div style={{ marginTop: '20px' }}>
+        <button onClick={updateColor} style={{ marginRight: '10px', padding: '10px' }}>
+          Ubah Warna
+        </button>
+        <button onClick={SapaUser} style={{ padding: '10px' }}>
+          Sapa Saya
+        </button>
+      </div>
     </div>
   )
 }
