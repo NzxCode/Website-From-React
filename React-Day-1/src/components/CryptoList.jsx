@@ -4,8 +4,8 @@ function CryptoList() {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        console.log("Mengambil data...");
+    const fetchCoins = () => {
+        setLoading(true);
         fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=10&page=1&sparkline=false')
             .then((response) => response.json())
             .then((data) => {
@@ -16,15 +16,36 @@ function CryptoList() {
                 console.error("Error:", error);
                 setLoading(false);
             });
+    };
+
+    useEffect(() => {
+        fetchCoins();
     }, []);
 
-    if(loading) {
-        return <div style={{ textAlign: 'center', padding: '20px' }}>Sabar cuy, lagi loading....</div>
+    if (loading) {
+        return <div style={{ textAlign: 'center', padding: '50px' }}>⏳ Sabar ya, lagi loading data update...</div>;
     }
 
     return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Crypto Market Watch (IDR)</h2>
+
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <button 
+                    onClick={fetchCoins} 
+                    style={{ 
+                        padding: '10px 20px', 
+                        cursor: 'pointer', 
+                        backgroundColor: '#007bff', 
+                        color: 'white', 
+                        border: 'none', 
+                        borderRadius: '5px',
+                        fontSize: '16px' 
+                    }}
+                >
+                    🔄 Update Harga
+                </button>
+            </div>
 
             {coins.map((coin) => (
                 <div 
