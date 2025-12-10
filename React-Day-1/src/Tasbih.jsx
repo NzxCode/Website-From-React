@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function Tasbih () {
-    const {angka, setAngka} = useState(0);
+    const [angka, setAngka] = useState(0);
 
     const tambah = () => setAngka(angka + 1);
 
