@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function CryptoList() {
     const [coins, setCoins] = useState([]);
@@ -39,7 +40,7 @@ function CryptoList() {
                         backgroundColor: '#007bff', 
                         color: 'white', 
                         border: 'none', 
-                        borderRadius: '5px',
+                        borderRadius: '5px', 
                         fontSize: '16px' 
                     }}
                 >
@@ -48,43 +49,53 @@ function CryptoList() {
             </div>
 
             {coins.map((coin) => (
-                <div 
+                <Link 
+                    to={`/coin/${coin.id}`} 
                     key={coin.id} 
                     style={{ 
-                        border: '1px solid #ddd', 
-                        padding: '15px', 
-                        marginBottom: '10px', 
-                        borderRadius: '8px',
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'space-between',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                        textDecoration: 'none', 
+                        color: 'inherit', 
+                        display: 'block' 
                     }}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                        <img src={coin.image} alt={coin.name} width="40" />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{coin.name}</span>
-                            <span style={{ fontSize: '14px', color: 'gray' }}>{coin.symbol.toUpperCase()}</span>
+                    <div 
+                        style={{ 
+                            border: '1px solid #ddd', 
+                            padding: '15px', 
+                            marginBottom: '10px', 
+                            borderRadius: '8px',
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'space-between',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                            transition: 'transform 0.2s',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            <img src={coin.image} alt={coin.name} width="40" />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{coin.name}</span>
+                                <span style={{ fontSize: '14px', color: 'gray' }}>{coin.symbol.toUpperCase()}</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '16px', fontWeight: '600' }}>
-                           Rp {coin.current_price.toLocaleString('id-ID')}
-                        </div>
-                        
-                        <div style={{ 
-                            fontSize: '14px',
-                            fontWeight: 'bold', 
-                            marginTop: '5px',
-                            color: coin.price_change_percentage_24h > 0 ? 'green' : 'red' 
-                        }}>
-                            {coin.price_change_percentage_24h > 0 ? '+' : ''}
-                            {coin.price_change_percentage_24h.toFixed(2)}%
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '16px', fontWeight: '600' }}>
+                               Rp {coin.current_price.toLocaleString('id-ID')}
+                            </div>
+                            <div style={{ 
+                                fontSize: '14px',
+                                fontWeight: 'bold', 
+                                marginTop: '5px',
+                                color: coin.price_change_percentage_24h > 0 ? 'green' : 'red' 
+                            }}>
+                                {coin.price_change_percentage_24h > 0 ? '+' : ''}
+                                {coin.price_change_percentage_24h.toFixed(2)}%
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             ))}
         </div>
     );
