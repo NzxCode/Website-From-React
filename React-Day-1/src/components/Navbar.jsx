@@ -12,7 +12,7 @@ function Navbar() {
             boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
         }}>
             <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '24px', fontWeight: 'bold' }}>
-                🦁 Nico's Market
+                Nico's Market
             </Link>
             <div style={{ display: 'flex', gap: '20px' }}>
                 <Link to="/" style={{ textDecoration: 'none', color: '#ddd', fontSize: '16px' }}>Home</Link>
