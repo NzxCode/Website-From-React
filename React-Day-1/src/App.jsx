@@ -1,13 +1,19 @@
 import {Routes, Route } from 'react-router-dom';
-import Menu from './Main_Menu'; 
 import CoinDetail from './components/CoinDetail';
+import CryptoList from './components/CryptoList';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Menu />} />
-      <Route path="/coin/:id" element={<CoinDetail />} />
-    </Routes>
+    <div>
+        <Navbar />
+        <div style={{ marginTop: '20px' }}>
+            <Routes>
+                <Route path="/" element={<CryptoList />} />
+                <Route path="/coin/:id" element={<CoinDetail />} />
+            </Routes>
+        </div>
+    </div>
   )
 }
 

@@ -5,6 +5,8 @@ function CryptoList() {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [search, setSearch] = useState('');
+
     const fetchCoins = () => {
         setLoading(true);
         fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=10&page=1&sparkline=false')
@@ -23,13 +25,36 @@ function CryptoList() {
         fetchCoins();
     }, []);
 
+    const filteredCoins = coins.filter((coin) => {
+        return coin.name.toLowerCase().includes(search.toLowerCase()) || coin.symbol.toLowerCase().includes(search.toLowerCase());
+    });
+
     if (loading) {
-        return <div style={{ textAlign: 'center', padding: '50px' }}>⏳ Sabar ya, lagi loading data update...</div>;
+        return (
+            <div style={{ textAlign: 'center', padding: '50px' }}>
+                <div className="spinner"></div>
+                <p>Mengambil data pasar market!</p>
+            </div>
+        );
     }
 
     return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Crypto Market Watch (IDR)</h2>
+            <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                <input 
+                    type="text" 
+                    placeholder="🔍 Cari koin..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    style={{
+                        padding: '10px',
+                        width: '80%',
+                        fontSize: '16px',
+                        borderRadius: '8px',
+                        border: '1px solid #ccc'
+                    }}
+                />
+            </div>
 
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                 <button 
@@ -48,7 +73,7 @@ function CryptoList() {
                 </button>
             </div>
 
-            {coins.map((coin) => (
+            {filteredCoins.map((coin) => (
                 <Link 
                     to={`/coin/${coin.id}`} 
                     key={coin.id} 
@@ -97,6 +122,12 @@ function CryptoList() {
                     </div>
                 </Link>
             ))}
+            {filteredCoins.length === 0 && (
+            <div style={{ textAlign: 'center', color: 'gray', marginTop: '20px' }}>
+                Koin "{search}" tidak ditemukan 😔
+            </div>
+            )}
+
         </div>
     );
 }
